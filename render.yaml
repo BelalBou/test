@@ -16,6 +16,10 @@ services:
         value: votre-secret-jwt-tres-securise-pour-production-changez-moi
       - key: STRIPE_SECRET_KEY
         value: sk_test_51Qm0WHCA9knPbVsZV3Jk2uT9CwO9XxggFei9BTMt5nxi7HilISXmTsMFtGnQibrVH0XaLnsyI1uaXuW1Z9zASOqI00OmIaqEny
+      - key: FRONTEND_URL
+        value: https://test-hjc1.onrender.com
+      - key: CORS_ORIGIN
+        value: https://test-hjc1.onrender.com
     healthCheckPath: /api
     region: frankfurt # Pour correspondre à votre base de données
     plan: free
