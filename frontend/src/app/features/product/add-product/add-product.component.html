@@ -1,0 +1,89 @@
+<div
+  class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8 border border-[#76b947]"
+>
+  <h2 class="text-2xl font-bold text-[#76b947] mb-6 text-center">
+    Ajouter un produit
+  </h2>
+  <form (ngSubmit)="saveProduct()" class="space-y-5">
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1"
+        >Nom du produit</label
+      >
+      <input
+        [(ngModel)]="title"
+        name="title"
+        placeholder="Nom"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1"
+        >Description</label
+      >
+      <textarea
+        [(ngModel)]="description"
+        name="description"
+        placeholder="Description"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+        rows="3"
+      ></textarea>
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1"
+        >Prix (€)</label
+      >
+      <input
+        type="number"
+        [(ngModel)]="price"
+        name="price"
+        placeholder="Prix"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+        min="0"
+        step="0.01"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1"
+        >URL de l’image</label
+      >
+      <input
+        [(ngModel)]="image_url"
+        name="image_url"
+        placeholder="URL de l’image"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1"
+        >Stock</label
+      >
+      <input
+        type="number"
+        [(ngModel)]="stock"
+        name="stock"
+        placeholder="Stock"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+        min="0"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1"
+        >Catégorie ID</label
+      >
+      <input
+        type="number"
+        [(ngModel)]="category_id"
+        name="category_id"
+        placeholder="Catégorie ID"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+        min="1"
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-full bg-[#76b947] hover:bg-[#5ea23c] text-white font-semibold px-6 py-2 rounded-full shadow transition"
+    >
+      Ajouter
+    </button>
+  </form>
+</div>

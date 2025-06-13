@@ -1,0 +1,28 @@
+# Dépendances
+node_modules
+*/node_modules
+
+# Logs et fichiers temporaires  
+*.log
+.tmp
+.temp
+
+# Fichiers de configuration
+.git
+.gitignore
+docker-compose.yml
+
+# Documentation
+*.md
+
+# Configuration Render
+render.yaml
+
+# IDE et OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Zone Identifier files (Windows)
+*:Zone.Identifier

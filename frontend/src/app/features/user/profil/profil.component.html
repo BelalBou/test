@@ -1,0 +1,121 @@
+<div
+  class="max-w-xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-lg animate-fade-in"
+>
+  <h2 class="text-3xl font-bold text-[#76b947] mb-6 text-center">Mon Profil</h2>
+
+  <!-- Formulaire -->
+  <form (ngSubmit)="save()" #profileForm="ngForm" class="space-y-5">
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1"
+        >Prénom</label
+      >
+      <input
+        [(ngModel)]="firstname"
+        name="firstname"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1">Nom</label>
+      <input
+        [(ngModel)]="lastname"
+        name="lastname"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1"
+        >Email</label
+      >
+      <input
+        [(ngModel)]="email"
+        name="email"
+        type="email"
+        class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1">Rôle</label>
+      <p class="text-gray-800 font-medium">{{ role }}</p>
+    </div>
+
+    <!-- Boutons -->
+    <div class="flex flex-wrap gap-3 mt-6">
+      <button
+        type="submit"
+        class="bg-[#76b947] hover:bg-[#5ea23c] text-white px-6 py-2 rounded-full shadow transition"
+      >
+        Enregistrer
+      </button>
+
+      <button
+        *ngIf="role === 'client'"
+        type="button"
+        (click)="devenirVendeur()"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full shadow transition"
+      >
+        Devenir vendeur
+      </button>
+    </div>
+    <div *ngIf="role === 'vendor'" class="mt-12">
+      <h3 class="text-2xl font-bold text-[#76b947] mb-4">
+        Ma fiche commerçant
+      </h3>
+
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-gray-700 mb-1"
+          >Nom du commerce</label
+        >
+        <input
+          [(ngModel)]="business_name"
+          name="business_name"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-gray-700 mb-1"
+          >Description</label
+        >
+        <textarea
+          [(ngModel)]="description"
+          name="description"
+          rows="3"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg"
+        ></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-gray-700 mb-1"
+          >Lieu</label
+        >
+        <input
+          [(ngModel)]="location"
+          name="location"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-gray-700 mb-1"
+          >Image</label
+        >
+        <img
+          [src]="vendorImagePreview || 'https://via.placeholder.com/150'"
+          class="w-32 h-32 object-cover rounded mb-2"
+        />
+        <input type="file" (change)="onVendorImageSelected($event)" />
+      </div>
+
+      <button
+        (click)="saveVendorInfo()"
+        class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full shadow transition"
+      >
+        Enregistrer ma fiche
+      </button>
+    </div>
+  </form>
+</div>

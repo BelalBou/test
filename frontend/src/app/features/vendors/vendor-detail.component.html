@@ -1,0 +1,71 @@
+<div *ngIf="vendor" class="max-w-6xl mx-auto px-4 py-12 animate-fade-in">
+  <!-- Infos commerçant -->
+  <div class="text-center mb-10">
+    <img
+      [src]="vendor.image_url"
+      alt="photo"
+      class="w-32 h-32 mx-auto rounded-full object-cover shadow-md mb-4"
+    />
+    <h2 class="text-3xl font-bold text-[#76b947] mb-2">
+      {{ vendor.business_name }}
+    </h2>
+    <p class="text-gray-600 max-w-2xl mx-auto mb-2">
+      {{ vendor.description }}
+    </p>
+    <p class="text-sm text-gray-500">
+      📍 <strong>Localisation :</strong> {{ vendor.location }}
+    </p>
+  </div>
+
+  <!-- Produits -->
+  <div>
+    <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+      Produits disponibles
+    </h3>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        *ngFor="let product of vendor.products"
+        class="bg-white rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1 duration-300"
+      >
+        <img
+          [src]="product.image_url"
+          [alt]="product.title"
+          class="w-full h-48 object-cover rounded-t-xl"
+        />
+        <div class="p-4 space-y-2">
+          <h4 class="text-lg font-semibold text-[#76b947]">
+            {{ product.title }}
+          </h4>
+          <p class="text-gray-600 text-sm">
+            {{
+              (product.description?.length ?? 0) > 120
+                ? (product.description | slice : 0 : 120) + "…"
+                : product.description
+            }}
+          </p>
+          <p class="text-gray-700 font-medium">{{ product.price }} €</p>
+          <div class="pt-4 flex justify-between items-center">
+            <button
+              (click)="addToCart(product)"
+              class="bg-[#76b947] hover:bg-[#5ea23c] text-white px-4 py-2 rounded-full text-sm shadow transition z-20"
+            >
+              Ajouter au panier
+            </button>
+            <a
+              [routerLink]="['/products', product.id]"
+              class="text-sm text-[#76b947] p-4 pb-4 hover:underline z-20"
+            >
+              Voir plus
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chargement -->
+<div *ngIf="!vendor" class="text-center text-gray-500 py-20">
+  <p>Chargement du vendeur...</p>
+</div>

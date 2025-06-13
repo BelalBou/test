@@ -1,0 +1,103 @@
+<nav class="bg-[#faf3e0] shadow-md px-6 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <!-- Logo -->
+    <div
+      class="text-2xl font-bold text-[#76b947] flex items-center gap-2 animate-fade-in-down"
+    >
+      🌿 Marché Local
+    </div>
+
+    <!-- Menu desktop -->
+    <div
+      class="hidden md:flex items-center gap-6 text-gray-700 font-medium animate-fade-in"
+    >
+      <a
+        routerLink="/"
+        class="hover:text-[#76b947] transition-colors duration-200"
+        >Accueil</a
+      >
+      <a
+        routerLink="/products"
+        class="hover:text-[#76b947] transition-colors duration-200"
+        >Produits</a
+      >
+      <a
+        routerLink="/vendors"
+        class="hover:text-[#76b947] transition-colors duration-200"
+        >Nos commerçants</a
+      >
+
+      <ng-container *ngIf="role; else guestLinks">
+        <a
+          *ngIf="role === 'vendor'"
+          routerLink="/mon-commerce"
+          class="hover:text-[#76b947] transition-colors duration-200"
+        >
+          Mon commerce
+        </a>
+
+        <!-- Menu profil -->
+        <div
+          class="relative group"
+          (mouseenter)="showMenu = true"
+          (mouseleave)="showMenu = false"
+        >
+          <a
+            routerLink="/profil"
+            class="flex items-center gap-2 cursor-pointer hover:text-[#76b947] font-medium"
+          >
+            Profil
+          </a>
+          <div
+            *ngIf="showMenu"
+            class="absolute right-0 mt-2 bg-white border rounded shadow-md w-40 z-50 animate-fade-in-up"
+          >
+            <a routerLink="/profil" class="block px-4 py-2 hover:bg-gray-100">
+              Mon profil
+            </a>
+            <button
+              (click)="logout()"
+              class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+            >
+              Déconnexion
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #guestLinks>
+        <a routerLink="/login" class="hover:text-[#76b947] transition"
+          >Connexion</a
+        >
+        <a routerLink="/register" class="hover:text-[#76b947] transition"
+          >Inscription</a
+        >
+      </ng-template>
+    </div>
+
+    <!-- Panier -->
+    <div class="ml-4 relative">
+      <a
+        routerLink="/cart"
+        class="relative group font-medium hover:text-[#76b947]"
+      >
+        Panier
+      </a>
+    </div>
+
+    <!-- Burger (mobile) -->
+    <button class="md:hidden text-[#76b947] focus:outline-none ml-4">
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+</nav>

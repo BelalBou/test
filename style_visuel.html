@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accueil – Marketplace Locale</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 1s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-[#F5F3EB] text-[#3A3A3A]">
+    <!-- Header -->
+    <header class="bg-white shadow-md p-6 flex justify-between items-center">
+      <h1 class="text-2xl text-[#76B947] font-semibold">Marché Local</h1>
+      <nav class="space-x-6 text-sm">
+        <a href="#" class="hover:text-[#76B947]">Accueil</a>
+        <a href="#" class="hover:text-[#76B947]">Produits</a>
+        <a href="#" class="hover:text-[#76B947]">Vendeurs</a>
+        <a href="#" class="hover:text-[#76B947]">Connexion</a>
+      </nav>
+    </header>
+
+    <!-- Hero section -->
+    <section
+      class="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-[#FAFAFA] fade-in"
+    >
+      <h2 class="text-4xl md:text-5xl text-[#6B4F3B] mb-4">
+        Consommez local, soutenez vos producteurs
+      </h2>
+      <p class="text-lg text-gray-700 mb-6 max-w-xl">
+        Une plateforme simple et éthique pour commander des produits locaux
+        directement auprès de fermes, artisans et commerçants près de chez vous.
+      </p>
+      <a
+        href="#"
+        class="bg-[#76B947] text-white px-6 py-3 rounded-xl shadow hover:bg-[#5C9E3F] transition"
+        >Découvrir les produits</a
+      >
+    </section>
+
+    <!-- Catégories -->
+    <section class="min-h-screen flex flex-col justify-center px-6 fade-in">
+      <h3 class="text-2xl mb-8 text-center text-[#6B4F3B]">Nos catégories</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div
+          class="bg-white p-6 rounded-xl shadow text-center hover:scale-105 transition-transform"
+        >
+          <img
+            src="https://source.unsplash.com/300x200/?vegetables"
+            class="mx-auto mb-4 rounded-xl"
+          />
+          <h4 class="font-semibold text-[#76B947]">Fruits & Légumes</h4>
+        </div>
+        <div
+          class="bg-white p-6 rounded-xl shadow text-center hover:scale-105 transition-transform"
+        >
+          <img
+            src="https://source.unsplash.com/300x200/?cheese,dairy"
+            class="mx-auto mb-4 rounded-xl"
+          />
+          <h4 class="font-semibold text-[#76B947]">Produits laitiers</h4>
+        </div>
+        <div
+          class="bg-white p-6 rounded-xl shadow text-center hover:scale-105 transition-transform"
+        >
+          <img
+            src="https://source.unsplash.com/300x200/?jam,biscuits"
+            class="mx-auto mb-4 rounded-xl"
+          />
+          <h4 class="font-semibold text-[#76B947]">Épicerie artisanale</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- Produits phares -->
+    <section
+      class="min-h-screen flex flex-col justify-center px-6 bg-white fade-in"
+    >
+      <h3 class="text-2xl mb-8 text-center text-[#6B4F3B]">
+        Produits locaux en vedette
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div
+          class="bg-[#FAFAFA] p-4 rounded-2xl shadow-md hover:shadow-lg transition-shadow"
+        >
+          <img
+            src="https://source.unsplash.com/300x200/?milk,bottle"
+            class="rounded-xl mb-3"
+          />
+          <h4 class="font-serif text-xl text-[#6B4F3B]">
+            Bouteille de lait fermier
+          </h4>
+          <p class="text-sm text-gray-600">
+            Fraîchement trait, livré en circuit court.
+          </p>
+          <p class="mt-2 font-bold text-[#76B947] text-lg">1,90€</p>
+        </div>
+        <div
+          class="bg-[#FAFAFA] p-4 rounded-2xl shadow-md hover:shadow-lg transition-shadow"
+        >
+          <img
+            src="https://source.unsplash.com/300x200/?eggs,carton"
+            class="rounded-xl mb-3"
+          />
+          <h4 class="font-serif text-xl text-[#6B4F3B]">
+            Oeufs bio de la ferme
+          </h4>
+          <p class="text-sm text-gray-600">
+            Pondus le matin, disponibles en 6 ou 12 pièces.
+          </p>
+          <p class="mt-2 font-bold text-[#76B947] text-lg">3,50€</p>
+        </div>
+        <div
+          class="bg-[#FAFAFA] p-4 rounded-2xl shadow-md hover:shadow-lg transition-shadow"
+        >
+          <img
+            src="https://source.unsplash.com/300x200/?jam,jar"
+            class="rounded-xl mb-3"
+          />
+          <h4 class="font-serif text-xl text-[#6B4F3B]">
+            Confiture artisanale aux fraises
+          </h4>
+          <p class="text-sm text-gray-600">
+            Préparée sans conservateurs avec des fraises locales.
+          </p>
+          <p class="mt-2 font-bold text-[#76B947] text-lg">5,99€</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t p-6 text-center text-sm text-gray-500">
+      © 2025 Marché Local — Fait avec ❤️ pour les producteurs belges.
+    </footer>
+  </body>
+</html>

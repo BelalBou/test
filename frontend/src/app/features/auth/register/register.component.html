@@ -1,0 +1,76 @@
+<div class="min-h-screen flex items-center justify-center bg-[#f3f4f6]">
+  <div
+    class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 animate-fade-in"
+  >
+    <h2 class="text-3xl font-bold text-center text-[#76b947] mb-6">
+      Créer un compte
+    </h2>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Prénom -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1"
+          >Prénom</label
+        >
+        <input
+          type="text"
+          formControlName="firstname"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+        />
+      </div>
+
+      <!-- Nom -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1"
+          >Nom</label
+        >
+        <input
+          type="text"
+          formControlName="lastname"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1"
+          >Email</label
+        >
+        <input
+          type="email"
+          formControlName="email"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+        />
+      </div>
+
+      <!-- Mot de passe -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1"
+          >Mot de passe</label
+        >
+        <input
+          type="password"
+          formControlName="password"
+          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-[#76b947] focus:outline-none"
+        />
+      </div>
+
+      <!-- Bouton -->
+      <button
+        type="submit"
+        [disabled]="signupForm.invalid"
+        class="w-full bg-[#76b947] hover:bg-[#5ea23c] text-white font-medium py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+      >
+        S'inscrire
+      </button>
+
+      <!-- Messages -->
+      <p *ngIf="errorMessage" class="text-red-600 text-sm text-center mt-2">
+        {{ errorMessage }}
+      </p>
+      <p *ngIf="successMessage" class="text-green-600 text-sm text-center mt-2">
+        {{ successMessage }}
+      </p>
+    </form>
+  </div>
+</div>

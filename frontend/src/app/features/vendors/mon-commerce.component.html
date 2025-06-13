@@ -1,0 +1,170 @@
+<div class="max-w-5xl mx-auto px-4 py-12 animate-fade-in">
+  <h2 class="text-4xl font-bold text-[#76b947] mb-4 text-center">
+    🏪 Mon commerce
+  </h2>
+
+  <p class="text-gray-700 text-center max-w-xl mx-auto mb-10">
+    Bienvenue sur votre espace vendeur. Ici, vous pouvez ajouter, modifier ou
+    supprimer vos produits, et gérer les informations de votre commerce local.
+  </p>
+  <div class="flex flex-col items-center mb-6">
+    <p class="mt-2 text-center">
+      Utilisez le bouton ci-dessous pour commencer à vendre vos produits.
+    </p>
+    <button
+      class="mt-6 bg-[#76b947] hover:bg-[#5ea23c] text-white font-semibold px-6 py-3 rounded-full shadow-md hover:shadow-lg transition"
+      (click)="showAddForm = !showAddForm"
+    >
+      ➕ Ajouter un produit
+    </button>
+  </div>
+
+  <!-- Placeholder pour les prochaines fonctionnalités -->
+
+  <div *ngIf="showAddForm">
+    <app-add-product (productAdded)="onProductAdded()"></app-add-product>
+  </div>
+
+  <div *ngIf="vendor?.products?.length">
+    <h3
+      class="text-2xl font-bold text-[#76b947] mb-6 mt-10 text-center border-b-2 border-[#76b947] pb-2"
+    >
+      Mes produits
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        *ngFor="let product of vendor?.products"
+        class="relative bg-white border-2 border-[#76b947] rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300 group overflow-hidden"
+      >
+        <img
+          [src]="product.image_url"
+          [alt]="product.title"
+          class="w-full h-48 object-cover rounded-t-xl border-b-2 border-[#76b947] group-hover:scale-105 transition-transform duration-300"
+        />
+        <div class="p-4 space-y-2">
+          <h4 class="text-lg font-bold text-[#76b947] group-hover:underline">
+            {{ product.title }}
+          </h4>
+          <p class="text-gray-600 text-sm line-clamp-2 min-h-[2.5em]">
+            {{ product.description }}
+          </p>
+          <p class="text-lg font-semibold text-[#76b947]">
+            {{ product.price }} €
+          </p>
+          <div class="flex gap-2 mt-4">
+            <button
+              class="flex-1 bg-[#76b947] hover:bg-[#5ea23c] text-white font-semibold py-1 rounded transition"
+              (click)="startEdit(product)"
+              *ngIf="!isEditing(product)"
+            >
+              ✏️ Modifier
+            </button>
+            <button
+              class="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 rounded transition"
+              (click)="confirmDelete(product)"
+              *ngIf="!isEditing(product)"
+            >
+              🗑️ Supprimer
+            </button>
+          </div>
+          <!-- Inline edit form -->
+          <form
+            *ngIf="isEditing(product)"
+            (ngSubmit)="submitEdit(product)"
+            class="mt-4 space-y-3 bg-gray-50 border border-gray-200 rounded-lg p-4"
+          >
+            <div class="flex flex-col gap-1">
+              <label
+                for="title-{{ product.id }}"
+                class="font-semibold text-gray-700"
+              >
+                Titre
+              </label>
+              <input
+                id="title-{{ product.id }}"
+                type="text"
+                [(ngModel)]="editForm.title"
+                name="title"
+                placeholder="Titre"
+                class="w-full border border-gray-300 rounded px-2 py-1 focus:ring-2 focus:ring-[#76b947]"
+                required
+              />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label
+                for="desc-{{ product.id }}"
+                class="font-semibold text-gray-700"
+              >
+                Description
+              </label>
+              <textarea
+                id="desc-{{ product.id }}"
+                [(ngModel)]="editForm.description"
+                name="description"
+                placeholder="Description"
+                class="w-full border border-gray-300 rounded px-2 py-1 focus:ring-2 focus:ring-[#76b947]"
+                required
+              ></textarea>
+            </div>
+            <div class="flex flex-col gap-1">
+              <label
+                for="price-{{ product.id }}"
+                class="font-semibold text-gray-700"
+              >
+                Prix (€)
+              </label>
+              <input
+                id="price-{{ product.id }}"
+                type="number"
+                [(ngModel)]="editForm.price"
+                name="price"
+                placeholder="Prix"
+                class="w-full border border-gray-300 rounded px-2 py-1 focus:ring-2 focus:ring-[#76b947]"
+                required
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label
+                for="img-{{ product.id }}"
+                class="font-semibold text-gray-700"
+              >
+                URL image
+              </label>
+              <input
+                id="img-{{ product.id }}"
+                type="text"
+                [(ngModel)]="editForm.image_url"
+                name="image_url"
+                placeholder="URL image"
+                class="w-full border border-gray-300 rounded px-2 py-1 focus:ring-2 focus:ring-[#76b947]"
+              />
+            </div>
+            <div class="flex gap-2 mt-2">
+              <button
+                type="submit"
+                class="flex-1 bg-[#76b947] text-white rounded py-1 font-semibold hover:bg-[#5ea23c]"
+              >
+                💾 Enregistrer
+              </button>
+              <button
+                type="button"
+                class="flex-1 bg-gray-300 rounded py-1 font-semibold hover:bg-gray-400"
+                (click)="cancelEdit()"
+              >
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="feedbackMessage"
+      class="mt-4 text-center text-green-600 font-semibold"
+    >
+      {{ feedbackMessage }}
+    </div>
+  </div>
+</div>

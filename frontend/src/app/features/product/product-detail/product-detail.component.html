@@ -1,0 +1,111 @@
+<section class="py-12 bg-[#f3f4f6]">
+  <div
+    class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-start"
+    *ngIf="product"
+  >
+    <!-- Image produit -->
+    <img
+      [src]="product.image_url"
+      [alt]="product.title"
+      class="w-full h-96 object-cover rounded-xl shadow-lg hover:scale-105 transition duration-500"
+    />
+
+    <!-- Infos produit -->
+    <div class="space-y-6">
+      <h1 class="text-3xl font-bold text-[#76b947]">{{ product.title }}</h1>
+
+      <p class="text-2xl font-semibold text-gray-800">
+        {{ product.price | currency : "EUR" }}
+      </p>
+
+      <p class="text-gray-700 text-base">
+        {{ product.description }}
+      </p>
+
+      <!-- Stock -->
+      <ng-container *ngIf="product.stock !== undefined">
+        <p
+          class="text-sm font-medium"
+          [ngClass]="{
+            'text-green-700': product.stock > 0,
+            'text-red-600': product.stock === 0
+          }"
+        >
+          {{
+            product.stock > 0
+              ? "En stock : " + product.stock
+              : "Rupture de stock"
+          }}
+        </p>
+
+        <button
+          [disabled]="product.stock === 0"
+          (click)="addToCart()"
+          class="bg-[#76b947] text-white px-6 py-3 rounded-full shadow hover:bg-[#5ea23c] transition disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Ajouter au panier
+        </button>
+      </ng-container>
+
+      <!-- Vendeur -->
+      <div class="pt-4 border-t text-sm text-gray-600">
+        Vendu par :
+        <a
+          *ngIf="product.vendor"
+          [routerLink]="['/vendors', product.vendor.id]"
+          class="text-[#76b947] font-semibold hover:underline"
+        >
+          {{ product.vendor.business_name }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section
+  *ngIf="similarProducts?.length"
+  class="py-12 bg-white border-t border-gray-200 mt-8"
+>
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Produits similaires</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        *ngFor="let product of similarProducts"
+        class="bg-white rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1 duration-300"
+      >
+        <img
+          [src]="product.image_url"
+          [alt]="product.title"
+          class="w-full h-48 object-cover rounded-t-xl"
+        />
+        <div class="p-4 space-y-2">
+          <h4 class="text-lg font-semibold text-[#76b947]">
+            {{ product.title }}
+          </h4>
+          <p class="text-gray-600 text-sm">
+            {{
+              product.description.length > 120
+                ? (product.description | slice : 0 : 120) + "…"
+                : product.description
+            }}
+          </p>
+          <p class="text-gray-700 font-medium">{{ product.price }} €</p>
+          <div class="pt-4 flex justify-between items-center">
+            <button
+              (click)="addToCart(product)"
+              class="bg-[#76b947] hover:bg-[#5ea23c] text-white px-4 py-2 rounded-full text-sm shadow transition z-20"
+            >
+              Ajouter au panier
+            </button>
+            <a
+              [routerLink]="['/products', product.id]"
+              class="text-sm text-[#76b947] p-4 pb-4 hover:underline z-20"
+            >
+              Voir plus
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

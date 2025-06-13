@@ -1,0 +1,75 @@
+<section class="py-12 px-4 max-w-7xl mx-auto">
+  <h3 class="text-3xl font-bold text-[#76b947] mb-8">🛒 Mon panier</h3>
+
+  <!-- Panier vide -->
+  <div *ngIf="cart.length === 0" class="text-center text-gray-500 text-lg">
+    Votre panier est vide.
+  </div>
+
+  <!-- Liste des produits -->
+  <div *ngIf="cart.length > 0" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div
+      *ngFor="let item of cart"
+      class="bg-white rounded-xl shadow-md p-6 flex flex-col gap-4 animate-fade-in"
+    >
+      <img
+        [src]="item.imageUrl"
+        [alt]="item.name"
+        class="w-full h-48 object-cover rounded-md"
+      />
+
+      <div>
+        <h4 class="text-xl font-semibold text-[#76b947]">{{ item.name }}</h4>
+        <p class="text-gray-700 text-sm">
+          Prix unitaire : {{ item.price | currency : "EUR" }}
+        </p>
+      </div>
+
+      <!-- Quantité -->
+      <div class="flex items-center gap-2">
+        <label class="text-sm text-gray-700">Quantité :</label>
+        <button
+          (click)="updateQuantity(item.productId, item.quantity - 1)"
+          [disabled]="item.quantity <= 1"
+          class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded disabled:opacity-50"
+        >
+          -
+        </button>
+        <span class="text-base font-medium">{{ item.quantity }}</span>
+        <button
+          (click)="updateQuantity(item.productId, item.quantity + 1)"
+          class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded"
+        >
+          +
+        </button>
+      </div>
+
+      <p class="text-sm text-gray-700">
+        Sous-total : {{ item.price * item.quantity | currency : "EUR" }}
+      </p>
+
+      <button
+        (click)="removeItem(item.productId)"
+        class="mt-auto text-sm bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition"
+      >
+        🗑 Supprimer
+      </button>
+    </div>
+  </div>
+
+  <!-- Total général -->
+  <div *ngIf="cart.length > 0" class="mt-10 text-right">
+    <div *ngIf="errorMessage" class="mb-4 text-red-600 font-semibold">
+      {{ errorMessage }}
+    </div>
+    <h4 class="text-xl font-semibold text-gray-800 mb-4">
+      Total général : {{ getTotal() | currency : "EUR" }}
+    </h4>
+    <button
+      (click)="checkout()"
+      class="bg-[#76b947] hover:bg-[#5ea23c] text-white font-semibold px-6 py-3 rounded-lg shadow hover:shadow-lg transition"
+    >
+      Passer au paiement
+    </button>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <h3 class="text-3xl font-bold text-[#76b947] text-center mb-10">
+      🛍 Commerçants locaux
+    </h3>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+      *ngIf="vendors.length > 0"
+    >
+      <div
+        *ngFor="let vendor of vendors"
+        class="bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300"
+      >
+        <img
+          *ngIf="vendor.image_url"
+          [src]="vendor.image_url"
+          [alt]="vendor.business_name"
+          class="w-full h-48 object-cover rounded-t-xl"
+        />
+
+        <div class="p-4 space-y-2">
+          <h4 class="text-xl font-semibold text-[#76b947]">
+            {{ vendor.business_name }}
+          </h4>
+          <p class="text-sm text-gray-600">{{ vendor.description }}</p>
+          <p class="text-sm text-gray-500">
+            📍 {{ vendor.location }}<br />
+            👤 {{ vendor.user.firstname }} {{ vendor.user.lastname }}
+          </p>
+
+          <a
+            [routerLink]="['/vendors', vendor.id]"
+            class="inline-block text-sm text-[#76b947] font-medium hover:underline mt-2"
+          >
+            Voir le commerce
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aucun vendeur -->
+    <div *ngIf="vendors.length === 0" class="text-center text-gray-500">
+      <p>Aucun commerçant trouvé.</p>
+    </div>
+  </div>
+</section>
