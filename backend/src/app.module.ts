@@ -13,8 +13,6 @@ import { OrdersModule } from './orders/orders.module';
 import { VendorsModule } from './vendors/vendors.module';
 import { CategoryModule } from './categories/category.module';
 
-console.log('Mot de passe utilisé :', process.env.DB_PASSWORD);
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,21 +23,39 @@ console.log('Mot de passe utilisé :', process.env.DB_PASSWORD);
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
       exclude: ['/api*'],
-    }),
-
-    TypeOrmModule.forRootAsync({
+    }),    TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        host: config.get('DB_HOST'),
-        port: parseInt(config.get('DB_PORT') || '5432', 10),
-        username: config.get('DB_USERNAME'),
-        password: config.get('DB_PASSWORD'),
-        database: config.get('DB_NAME'),
-        autoLoadEntities: true,
-        synchronize: true,
-      }),
+      useFactory: (config: ConfigService) => {
+        // Si DATABASE_URL est définie (production), l'utiliser
+        const databaseUrl = config.get('DATABASE_URL');
+        
+        if (databaseUrl) {
+          console.log('Utilisation de DATABASE_URL pour la connexion');
+          return {
+            type: 'postgres',
+            url: databaseUrl,
+            autoLoadEntities: true,
+            synchronize: true, // ⚠️ À désactiver en production après création des tables
+            ssl: {
+              rejectUnauthorized: false // Nécessaire pour Render
+            }
+          };
+        } else {
+          // Configuration locale avec variables individuelles
+          console.log('Utilisation des variables individuelles pour la connexion');
+          return {
+            type: 'postgres',
+            host: config.get('DB_HOST'),
+            port: parseInt(config.get('DB_PORT') || '5432', 10),
+            username: config.get('DB_USERNAME'),
+            password: config.get('DB_PASSWORD'),
+            database: config.get('DB_NAME'),
+            autoLoadEntities: true,
+            synchronize: true,
+          };
+        }
+      },
     }),
 
     UsersModule,
